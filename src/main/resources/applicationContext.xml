@@ -7,21 +7,34 @@
     <!-- Spring入门的配置 -->
     <bean id="userDao" class="com.example.springlearn.dao.impl.UserDaoImpl" init-method="setUp"
           destroy-method="destroy">
-        <property name="name" value="zhuyunsheng"></property>
+        <property name="name" value="zhuyunsheng"/>
     </bean>
     <bean id="customerDao" class="com.example.springlearn.dao.impl.CustomerDaoImpl" init-method="setup"
           destroy-method="destroy">
     </bean>
     <!--有参创建-->
     <bean id="bean1" class="com.example.springlearn.demo3.Bean1">
-        <constructor-arg name="name" value="test"></constructor-arg>
+        <constructor-arg name="name" value="test"/>
     </bean>
     <!-- 无参创建 -->
     <bean id="bean2" class="com.example.springlearn.demo3.Bean2">
     </bean>
     <!--静态工厂的实例化方式-->
-    <bean id = "bean3" class="com.example.springlearn.demo3.BeanFactory" factory-method="createBean2"></bean>
+    <bean id="bean3" class="com.example.springlearn.demo3.BeanFactory" factory-method="createBean2"/>
     <!--实例工厂实例化的方式-->
-    <bean id="bean3Factory" class="com.example.springlearn.demo3.Bean3Factory" ></bean>
-    <bean id ="bean4" factory-bean="bean3Factory" factory-method="createBean3"></bean>
+    <bean id="bean3Factory" class="com.example.springlearn.demo3.Bean3Factory"/>
+    <bean id="bean4" factory-bean="bean3Factory" factory-method="createBean3"/>
+
+    <bean id="car" class="com.example.springlearn.demo4.Car">
+        <constructor-arg name="name" value="高尔夫"/>
+        <constructor-arg name="price" value="200000"/>
+    </bean>
+    <bean id="car1" class="com.example.springlearn.demo4.Car">
+        <property name="name" value="奔驰"/>
+        <property name="price" value="1000"/>
+    </bean>
+     <bean id = "employee" class="com.example.springlearn.demo4.Employee">
+         <property name="name" value="zhuyunsheng"/>
+         <property name="car" ref="car1"/>
+     </bean>
 </beans>
