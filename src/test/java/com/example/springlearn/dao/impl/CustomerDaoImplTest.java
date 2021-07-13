@@ -19,4 +19,15 @@ public class CustomerDaoImplTest {
         customerDao.save();
         applicationContext.close();
     }
+    @Test
+    public void testLifeCycle(){
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
+        CustomerDao customerDao1 = (CustomerDao) applicationContext.getBean("customerDao");
+        System.out.println(customerDao1);
+        CustomerDao customerDao2 = (CustomerDao) applicationContext.getBean("customerDao");
+        System.out.println(customerDao2);
+        System.out.println(customerDao1 == customerDao2);//true，bean默认即单例创建
+        applicationContext.close();
+
+    }
 }
