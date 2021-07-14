@@ -11,6 +11,9 @@ public class CustomerDaoImpl implements CustomerDao {
     public void setup() {
         System.out.println("CustomerDaoImpl被初始化了......");
     }
+    public CustomerDaoImpl(){
+        System.out.println("CustomerDaoImpl的无参构造方法");
+    }
     @Override
     public void save() {
         System.out.println("CustomerDaoImpl中的save方法执行了......");

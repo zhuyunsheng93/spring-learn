@@ -2,8 +2,9 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
     <!-- Spring入门的配置 -->
     <bean id="userDao" class="com.example.springlearn.dao.impl.UserDaoImpl" init-method="setUp"
           destroy-method="destroy">
@@ -33,9 +34,24 @@
         <property name="name" value="奔驰"/>
         <property name="price" value="1000"/>
     </bean>
-     <bean id = "employee" class="com.example.springlearn.demo4.Employee">
-         <property name="name" value="zhuyunsheng"/>
-         <property name="car" ref="car1"/>
-     </bean>
-    <context:component-scan base-package="com.example.springlearn" />
+    <bean id="employee" class="com.example.springlearn.demo4.Employee">
+        <property name="name" value="zhuyunsheng"/>
+        <property name="car" ref="car1"/>
+    </bean>
+<!--      <context:component-scan base-package="com.example.springlearn"/>-->
+
+    <bean id="aopProductDao" class="com.example.springlearn.aop.demo3.ProductDaoImpl"/>
+    <bean id="myAspect" class="com.example.springlearn.aop.demo3.aspect.MySecondXML"/>
+    <aop:config>
+        <!--定义一个切入点 expression：通过一个表达式来配置哪些类的方法需要增强-->
+        <aop:pointcut id="pointcut1" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.save(..))"/>
+        <aop:pointcut id="pointcut2" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.delete(..))"/>
+        <aop:pointcut id="pointcut3" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.update(..))"/>
+        <aop:aspect ref="myAspect">
+            <!--前置增强-->
+            <aop:before method="checkPri" pointcut-ref="pointcut1"></aop:before>
+            <aop:after-returning method="writeLog" pointcut-ref="pointcut2" returning="result"/>
+            <aop:around method="around" pointcut-ref="pointcut3"  />
+        </aop:aspect>
+    </aop:config>
 </beans>
