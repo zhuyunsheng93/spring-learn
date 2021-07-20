@@ -19,6 +19,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public void find() {
         System.out.println("查询商品......");
+        int i  =10/0;
     }
 
 //    @Override

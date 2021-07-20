@@ -47,11 +47,14 @@
         <aop:pointcut id="pointcut1" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.save(..))"/>
         <aop:pointcut id="pointcut2" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.delete(..))"/>
         <aop:pointcut id="pointcut3" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.update(..))"/>
+        <aop:pointcut id="pointcut4" expression="execution(* com.example.springlearn.aop.demo3.ProductDaoImpl.find(..))"/>
         <aop:aspect ref="myAspect">
             <!--前置增强-->
             <aop:before method="checkPri" pointcut-ref="pointcut1"></aop:before>
             <aop:after-returning method="writeLog" pointcut-ref="pointcut2" returning="result"/>
             <aop:around method="around" pointcut-ref="pointcut3"  />
+            <aop:after-throwing pointcut-ref="pointcut4" method="afterThrowing" throwing="ex"/>
+            <aop:after method="after" pointcut-ref="pointcut4" />
         </aop:aspect>
     </aop:config>
 </beans>

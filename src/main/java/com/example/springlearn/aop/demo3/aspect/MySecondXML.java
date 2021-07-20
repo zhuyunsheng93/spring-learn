@@ -27,4 +27,13 @@ public class MySecondXML {
         System.out.println("环绕后增强~~~~~~~~~~~~~~");
         return obj;
     }
+    public void afterThrowing(Throwable ex){
+        System.out.println("异常抛出通知~~~~~~~~~~，"+ex.getMessage());
+    }
+    /*
+     * 最终通知：相当于finally代码块中的内容
+     */
+    public void after(JoinPoint joinPoint) {
+        System.out.println("最终通知~~~~~~~~~~~~~~"+joinPoint);
+    }
 }
